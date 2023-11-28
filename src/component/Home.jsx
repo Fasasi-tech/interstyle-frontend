@@ -33,6 +33,9 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const debouncedSearchTxt = useDebounce(SearchTxt, 300);
 
+  const apifirst=process.env.REACT_APP_SERVER_URL
+  
+
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
     const storedPassword = localStorage.getItem('password');
@@ -68,7 +71,7 @@ const handleScannerInput = (event) => {
     try {
       e.preventDefault()
       console.log('Logging in...');
-      const response = await axios.post('http://localhost:8000/', {
+      const response = await axios.post(apifirst, {
         username,
         password,
       });
@@ -133,7 +136,7 @@ const handleScannerInput = (event) => {
           }
         } else {
           // Fetch all items from the API if cache is not available or expired
-          const response = await axios.get(`http://localhost:8000/api/data?searchTxt=${SearchTxt}`,  {
+          const response = await axios.get(`${apifirst}api/data?searchTxt=${SearchTxt}`,  {
             headers: {
               'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
             },
