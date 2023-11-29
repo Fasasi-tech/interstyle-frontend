@@ -143,7 +143,7 @@ const handleScannerInput = (event) => {
           }
         } else {
           // Fetch all items from the API if cache is not available or expired
-          const response = await axios.get(`http://localhost:8000/api/data?searchTxt=${SearchTxt}`,  {
+          const response = await axios.get(`${apifirst}api/data?searchTxt=${SearchTxt}`,  {
             headers: {
               'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
             },
