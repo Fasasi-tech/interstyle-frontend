@@ -118,7 +118,7 @@
 }
 
 .logos{
-  width:8rem;
+  width:14rem;
   padding-left: 2rem;
 }
 
@@ -156,12 +156,19 @@ nav{
   padding-left: 5px;
   font-size: 2rem;
 }
-
+.prices{
+  font-size: 3rem;
+  font-weight: 600;
+  font-family: 'Roboto Slab', serif;
+}
+span{
+  color:orangered;
+}
 .bcode{
   border:2px solid orangered;
   color:orangered;
-  min-width: 30rem;
-  max-width: 40rem;
+  min-width: 50rem;
+  max-width: 50rem;
   height:80px;
   padding:10px;
   border-radius: 5px;
@@ -203,6 +210,7 @@ nav{
 .item_price{
   color:orangered;
   font-weight: bold;
+  font-family: 'Roboto Slab', serif;
 }
 
 .price{
@@ -214,4 +222,20 @@ nav{
   font-size: xx-large;
   font-weight: 600;
   font-family: 'Roboto Slab', serif;
+}
+
+.flex{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap:1rem;
+}
+
+.item_description{
+  margin-top: 30px;
+}
+
+.t_desc{
+  color:orangered;
+  margin-left: 5px;
 }

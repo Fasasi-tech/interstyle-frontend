@@ -34,8 +34,15 @@ const Home = () => {
   const debouncedSearchTxt = useDebounce(SearchTxt, 300);
 
   const apifirst=process.env.REACT_APP_SERVER_URL
-  
 
+  //format to Nigeria's currency code
+  const formatCurrency = (amount) => {
+    // Assuming that itemDetails.ItemPrice is a number
+    return `₦${amount.toLocaleString('en-NG', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  };
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
     const storedPassword = localStorage.getItem('password');
@@ -124,8 +131,8 @@ const handleScannerInput = (event) => {
             setItemDetails(null);
             setSearchTxt('');
           
-            console.error('Item not found in cache');
-            toast.error('Item not found in cache', {
+            console.error('Item not found');
+            toast.error('Item not found', {
               position: "top-center",
               autoClose: 5000,
               hideProgressBar: false,
@@ -136,7 +143,7 @@ const handleScannerInput = (event) => {
           }
         } else {
           // Fetch all items from the API if cache is not available or expired
-          const response = await axios.get(`${apifirst}api/data?searchTxt=${SearchTxt}`,  {
+          const response = await axios.get(`http://localhost:8000/api/data?searchTxt=${SearchTxt}`,  {
             headers: {
               'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
             },
@@ -266,14 +273,18 @@ const handleScannerInput = (event) => {
             )}
             {itemDetails && (
               <div>
-                <h2 className='h_price'>Item Details</h2>
-                <p className=' price'>Item Price: {itemDetails.ItemPrice}</p>
-                <p className=' price'>Item Colour: {itemDetails.colour}</p>
-                <p className=' price'>Item Narration: {itemDetails.IteNarr}</p>
-                <p className='price'>Item Category: {itemDetails.Category}</p>
-                <p className='price'>Subcategory: {itemDetails.subCategory}</p>
-                <p className='price' >Size: {itemDetails.size}</p>
-                <img src={`${itemDetails.picture}.jpg`} alt="Item" />
+                <div className='flex'>
+                  <p className=' prices'>Price: <span>{formatCurrency(itemDetails.ItemPrice)}</span></p>
+                    <div className='item_description'>
+                      <h2 className='h_price'>Item Details</h2>
+                      <p className=' price'>Colour: <span className='t_desc'>{itemDetails.colour}</span></p>
+                      <p className=' price'> Narration: <span className='t_desc'>{itemDetails.IteNarr}</span></p>
+                      <p className='price'> Category: <span className='t_desc'>{itemDetails.Category}</span></p>
+                      <p className='price'>Sub-category:<span className='t_desc'>{itemDetails.subCategory}</span></p>
+                      <p className='price' >Size: <span className='t_desc'>{itemDetails.size}</span> </p>
+                    </div>
+                    {/* <img src={`${itemDetails.picture}.jpg`} alt="Item" /> */}
+                </div>
               </div>
             )}
           </div>
