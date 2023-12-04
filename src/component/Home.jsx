@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import './home.css'
-import  Logo from './interstyle.jpg'
+import  Logo from './interstyle-chakra.png'
 import { FaRegEye,  FaRegEyeSlash } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,7 +29,7 @@ const Home = () => {
   const [isLoggedIn, setLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true' || false);
   const [itemDetails, setItemDetails] = useState(null);
   const [error, setError] = useState(null);
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false);
   const debouncedSearchTxt = useDebounce(SearchTxt, 300);
 
@@ -38,7 +38,7 @@ const Home = () => {
   //format to Nigeria's currency code
   const formatCurrency = (amount) => {
     // Assuming that itemDetails.ItemPrice is a number
-    return `₦${amount.toLocaleString('en-NG', {
+    return `₦${amount.toLocaleString('en-NG', {  //toLocaleString he toLocaleString method is used to format a number, date, or currency value into a string based
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })}`;
@@ -77,6 +77,7 @@ const handleScannerInput = (event) => {
   const authenticate = async (e) => {
     try {
       e.preventDefault()
+      setLoading(true); // Set loading state to true
       console.log('Logging in...');
       const response = await axios.post(apifirst, {
         username,
@@ -93,6 +94,8 @@ const handleScannerInput = (event) => {
       }
     } catch (error) {
       setError('An error occurred while logging in');
+    } finally {
+      setLoading(false); // Reset loading state to false regardless of success or failure
     }
   };
 // const debounceSearchTxt = useDebounce(SearchTxt, 3000);
@@ -331,7 +334,7 @@ const handleScannerInput = (event) => {
             </div>
             
             <div className='log_div'>
-             <button type="submit" className='btn'>Login</button>
+             <button type="submit" className='btn'> {loading ? 'Logging in...' : isLoggedIn ? 'Already Logged In' : 'Login'}</button>
             </div>
              
             </form>
