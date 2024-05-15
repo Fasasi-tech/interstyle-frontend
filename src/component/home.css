@@ -160,7 +160,7 @@ nav{
 }
 .prices{
   font-size: 3rem;
-  font-weight: 600;
+  
   font-family: 'Roboto Slab', serif;
 }
 span{
@@ -217,7 +217,6 @@ span{
 
 .price{
   font-size: larger;
-  font-weight: 600;
   font-family: 'Roboto Slab', serif;
 }
 .h_price{
@@ -240,4 +239,5 @@ span{
 .t_desc{
   color:black;
   margin-left: 5px;
+  font-weight: 600;
 }
