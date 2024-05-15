@@ -281,12 +281,13 @@ const handleScannerInput = (event) => {
                   <p className=' prices'>Price: <span>{formatCurrency(itemDetails.ItemPrice)}</span></p>
                     <div className='item_description'>
                       <h2 className='h_price'>Item Details</h2>
+                      <p className='price'>Barcode:<span className='t_desc'>{itemDetails.SearchTxt}</span></p>
+                      <p className=' price'> Description: <span className='t_desc'>{itemDetails.IteNarr}</span></p>
                       <p className=' price'>Colour: <span className='t_desc'>{itemDetails.colour}</span></p>
-                      <p className=' price'> Narration: <span className='t_desc'>{itemDetails.IteNarr}</span></p>
                       <p className='price'> Category: <span className='t_desc'>{itemDetails.Category}</span></p>
                       <p className='price'>Sub-category:<span className='t_desc'>{itemDetails.subCategory}</span></p>
                       <p className='price' >Size: <span className='t_desc'>{itemDetails.size}</span> </p>
-                      <p className='price'>Item Code:<span className='t_desc'>{itemDetails.SearchTxt}</span></p>
+                    
                     </div>
                     {/* <img src={`${itemDetails.picture}.jpg`} alt="Item" /> */}
                 </div>
