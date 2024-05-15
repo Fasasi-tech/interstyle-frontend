@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import './home.css'
-import  Logo from './interstyle-chakra.png'
+import  Logo from './Chakra-Logo.png'
 import { FaRegEye,  FaRegEyeSlash } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -69,16 +69,17 @@ const handleScannerInput = (event) => {
   if (event.key === 'Enter' && event.target.value.trim() !== '') {
     // Prevent default behavior to avoid form submission and page reload
     event.preventDefault();
-
     // Handle the scanner input here
     setSearchTxt(event.target.value.trim());
   }
 };
+
   const authenticate = async (e) => {
     try {
       e.preventDefault()
       setLoading(true); // Set loading state to true
       console.log('Logging in...');
+      
       const response = await axios.post(apifirst, {
         username,
         password,
@@ -98,25 +99,23 @@ const handleScannerInput = (event) => {
       setLoading(false); // Reset loading state to false regardless of success or failure
     }
   };
+
 // const debounceSearchTxt = useDebounce(SearchTxt, 3000);
   useEffect(() =>{
     const fetchData = async () => {
       try {
         setLoading(true);
-    
         // Check if cached data is available and not expired (within 24 hours)
         const cachedData = localStorage.getItem('cachedItemData');
         const cachedTimestamp = localStorage.getItem('cachedTimestamp');
         const currentTimestamp = new Date().getTime();
         const expirationTime = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-    
         if (cachedData && cachedTimestamp && currentTimestamp - parseInt(cachedTimestamp) < expirationTime) {
           // Use cached data if it's still valid (within 24 hours)
           const parsedData = JSON.parse(cachedData);
     
           // Find the specific item in the cached data using a query
           const selectedItem = parsedData.find(item => item.SearchTxt === SearchTxt);
-    
           if (selectedItem) {
             setItemDetails({
               ItemPrice: selectedItem.ItemPrice,
@@ -125,11 +124,12 @@ const handleScannerInput = (event) => {
               IteNarr: selectedItem.IteNarr,
               Category:selectedItem.Category,
               subCategory:selectedItem.subCategory,
-              size:selectedItem.size
+              size:selectedItem.size,
+              SearchTxt:selectedItem.SearchTxt
+
             });
-    
             setSearchTxt('');
-          } else {
+          }else{
             // Handle case where no matching item is found in the cached data
             setItemDetails(null);
             setSearchTxt('');
@@ -171,7 +171,8 @@ const handleScannerInput = (event) => {
                 IteNarr: selectedItem.IteNarr,
                 Category:selectedItem.Category,
                 subCategory:selectedItem.subCategory,
-                size:selectedItem.size
+                size:selectedItem.size,
+                SearchTxt:selectedItem.SearchTxt
               });
     
               setSearchTxt('');
@@ -285,6 +286,7 @@ const handleScannerInput = (event) => {
                       <p className='price'> Category: <span className='t_desc'>{itemDetails.Category}</span></p>
                       <p className='price'>Sub-category:<span className='t_desc'>{itemDetails.subCategory}</span></p>
                       <p className='price' >Size: <span className='t_desc'>{itemDetails.size}</span> </p>
+                      <p className='price'>Item Code:<span className='t_desc'>{itemDetails.SearchTxt}</span></p>
                     </div>
                     {/* <img src={`${itemDetails.picture}.jpg`} alt="Item" /> */}
                 </div>
